@@ -46,9 +46,24 @@ public class Server {
             int numeroTareas = entradaServidor.readByte();
             clienteDice(String.valueOf(numeroTareas));
 
-/*            ArrayList<Tarea> tareas = new ArrayList<>();
+            ArrayList<Tarea> tareas = new ArrayList<>();
             for (int i = 0; i < numeroTareas; i++) {
-            }*/
+                salidaServidor.writeUTF("Tarea número " + (i + 1) + ":");
+                salidaServidor.writeUTF("¿Descripción de la tarea?");
+                String descripcion = entradaServidor.readUTF();
+                clienteDice(descripcion);
+                salidaServidor.writeUTF("¿Estado de la tarea?");
+                String estado = entradaServidor.readUTF();
+                clienteDice(estado);
+                Tarea tarea = new Tarea(descripcion, estado);
+                tareas.add(tarea);
+            }
+            salidaServidor.writeUTF("Enviando las siguientes tareas:");
+            int contador = 1;
+            for (int i = 0; i < numeroTareas; i++) {
+                salidaServidor.writeUTF("Tarea "+ contador + ". " + tareas.get(i).toString());
+                contador++;
+            }
 
             // Mensaje en el servidor cuando el cliente se desconecta
             System.out.println("¡Cliente desconectado!");

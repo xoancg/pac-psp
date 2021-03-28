@@ -22,7 +22,7 @@ public class Client {
         System.out.println("Iniciando conexión con el servidor...");
 
         // Instanciamos un objeto tipo Scanner para que el usuario pueda introducir mensajes vía consola
-        Scanner teclado = new Scanner(System.in);
+        Scanner consola = new Scanner(System.in);
 
         // Abrimos flujo de entrada en el servidor desde el cliente
         DataInputStream entradaCliente = new DataInputStream(server.getInputStream());
@@ -32,14 +32,28 @@ public class Client {
 
         // El servidor pregunta el nombre al cliente
         servidorDice(entradaCliente.readUTF());
-        salidaCliente.writeUTF(teclado.nextLine());
+        salidaCliente.writeUTF(consola.nextLine());
 
         // Servidor pregunta número de tareas a realizar
         servidorDice(entradaCliente.readUTF());
-        int numeroTareas = teclado.nextInt();
-        teclado.nextLine();
+        int numeroTareas = consola.nextInt();
+        consola.nextLine();
         salidaCliente.writeByte(numeroTareas);
-//        teclado.nextLine();
+        
+        for (int i = 0; i < numeroTareas; i++) {
+            servidorDice(entradaCliente.readUTF());
+            servidorDice(entradaCliente.readUTF());
+            String descripcion = consola.nextLine();
+            salidaCliente.writeUTF(descripcion);
+            servidorDice(entradaCliente.readUTF());
+            String estado = consola.nextLine();
+            salidaCliente.writeUTF(estado);
+        }
+        servidorDice(entradaCliente.readUTF());
+        for (int i = 0; i < numeroTareas; i++) {
+            servidorDice(entradaCliente.readUTF());
+        }
+
         System.out.println("Conexión finalizada.");
     }
 
