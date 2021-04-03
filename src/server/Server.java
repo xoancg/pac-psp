@@ -9,10 +9,9 @@ import java.util.ArrayList;
 
 public class Server {
     // Datos de conexión
-    // private final String HOST = "localhost"; // Dirección. ¿Por qué no podemos especificar esto?
-    private final int PORT = 9876;              // Puerto
-    private ServerSocket serverSocket;   // Socket del servidor ¿Es necesario inicializarla en null?
-    private Socket clientSocket;                // Socket del cliente
+    private final int PORT = 9876;       // Puerto
+    private ServerSocket serverSocket;   // Socket del servidor
+    private Socket clientSocket;         // Socket del cliente
 
     // Constructor (?) Server
     Server() throws IOException {
